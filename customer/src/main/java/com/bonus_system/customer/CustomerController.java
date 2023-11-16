@@ -7,13 +7,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("customer")
 @AllArgsConstructor
 @Tag(name = "Клиент", description = "Контроллер для клиента")
 public class CustomerController {
-    JdbcTemplate jdbcTemplate;
+    public Repository repository;
 
     @GetMapping("/idCustomer/{idCustomer}")
     @CrossOrigin("*")
@@ -22,11 +24,10 @@ public class CustomerController {
             summary = "Id Customer",
             description = "Позволяет получить  клиента по его id"
     )
-    public String GetCustomerByID(
+    public Optional<CustomerTable> GetCustomerByID(
             @PathVariable("idCustomer") Integer idCustomer
     ) {
-        jdbcTemplate.queryForList("select * from customer_bonus_system.public.customer where idclient=?", idCustomer);
-        return jdbcTemplate.queryForList("select * from customer_bonus_system.public.customer where idclient=?", idCustomer).toString();
+        return repository.findById(Long.valueOf(idCustomer));
     }
 
     @GetMapping("/idCard/{idCard}")
@@ -36,10 +37,10 @@ public class CustomerController {
             summary = "Id Card",
             description = "Получение  клиента по ID Card"
     )
-    public String GetByCardID(
-            @PathVariable("idCard") Integer idCard
+    public Optional<CustomerTable> GetByCardID(
+            @PathVariable("idCard") String idCard
     ) {
-        return jdbcTemplate.queryForList("select * from customer_bonus_system.public.customer where card_id=?", idCard).toString();
+        return repository.findByCardId(idCard);
     }
 
     @PostMapping("/createCustomer")
@@ -49,17 +50,11 @@ public class CustomerController {
             summary = "Регистрация клиента",
             description = "Позволяет зарегистрировать клиента"
     )
-    public String SetCustomer(
+    public String SetCustomer (
             @RequestBody @Parameter(description = "Запрос должен содержать это тело") SetCustomer setCustomer
     ) {
-        jdbcTemplate.update(
-                "insert into " +
-                        "customer_bonus_system.public.customer(" +
-                        "nickname, card_id) " +
-                        "VALUES (?, ?)",
-                setCustomer.getNickName(),
-                setCustomer.getCardId()
-        );
+        UUID uuid = UUID.randomUUID();
+        repository.updateCustomer(setCustomer.getNickName(), String.valueOf(uuid));
         return "Success create customer";
     }
 }
