@@ -1,11 +1,12 @@
-package com.bonus_system.customer;
+package com.bonus_system.customer.controllers;
 
+import com.bonus_system.customer.repoCustomer.CustomerTable;
+import com.bonus_system.customer.repoCustomer.Repository;
 import com.bonus_system.customer.forms.SetCustomer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;

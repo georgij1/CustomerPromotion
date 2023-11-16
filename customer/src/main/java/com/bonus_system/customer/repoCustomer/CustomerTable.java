@@ -1,4 +1,4 @@
-package com.bonus_system.customer;
+package com.bonus_system.customer.repoCustomer;
 
 import jakarta.persistence.*;
 import lombok.Data;

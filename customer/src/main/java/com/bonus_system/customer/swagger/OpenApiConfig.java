@@ -1,4 +1,4 @@
-package com.bonus_system.customer;
+package com.bonus_system.customer.swagger;
 
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.info.*;
