@@ -1,0 +1,92 @@
+openapi: "3.0.2"
+info:
+  title: Бонусная Система
+  description: Регистрация пользователя в бонусной системе
+  version: 1.0.0
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: Клиент
+    description: Контроллер для клиента
+paths:
+  /customer/idCustomer/{idCustomer}:
+    get:
+      tags:
+        - Клиент
+      summary: Id Customer
+      description: Позволяет получить  клиента по его id
+      operationId: findByClientId
+      parameters:
+        - name: idCustomer
+          in: path
+          description: IdClient
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  /customer/idCard/{idCard}:
+    get:
+      tags:
+        - Клиент
+      summary: Id Card
+      description: Получение  клиента по ID Card
+      operationId: findByCardId
+      parameters:
+        - name: idCard
+          in: path
+          description: CardId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: get success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  /customer/createCustomer:
+    post:
+      tags:
+        - Клиент
+      summary: Регистрация клиента
+      description: Позволяет зарегистрировать клиента
+      operationId: createCustomer
+      requestBody:
+        description: Create a new Customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: get success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+components:
+  schemas:
+    Customer:
+      required:
+        - nickName
+      type: object
+      properties:
+        nickName:
+          type: string
+          example: pylifor
