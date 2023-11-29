@@ -16,15 +16,16 @@ import java.util.UUID;
 public class CustomerController implements CustomerApi {
     public Repository repository;
 
-    public ResponseEntity<?> findByCardID(Long idCustomer, Integer card_id) {
+    @Override
+    public ResponseEntity<?> findByCardID(Long idCustomer, String card_id) {
         return ResponseEntity.ok().body(repository.findByCardId(String.valueOf(card_id)));
     }
 
-    public ResponseEntity<?> findByCustomerId(Long idCustomer) {
+    @Override public ResponseEntity<?> findByCustomerId(Long idCustomer) {
         return ResponseEntity.ok().body(repository.findById(idCustomer));
     }
 
-    public ResponseEntity<List<Customer>> createCustomer(Long idCard, Customer customer) {
+    @Override public ResponseEntity<List<Customer>> createCustomer(Long idCard, Customer customer) {
         UUID uuid = UUID.randomUUID();
         repository.updateCustomer(customer.getNickName(), String.valueOf(uuid));
         return new ResponseEntity<>(HttpStatus.CREATED);

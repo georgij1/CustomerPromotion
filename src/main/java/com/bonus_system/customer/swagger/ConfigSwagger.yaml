@@ -9,7 +9,7 @@ tags:
   - name: Клиент
     description: Контроллер для клиента
 paths:
-  /customer/idCustomer/{idCustomer}:
+  /idCustomer/{idCustomer}:
     get:
       tags:
         - Клиент
@@ -22,8 +22,8 @@ paths:
           description: IdClient
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: string
       responses:
         '200':
           description: successful operation
@@ -33,7 +33,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
-  /customer/idCard/{idCard}:
+  /idCard/{idCard}:
     get:
       tags:
         - Клиент
@@ -46,8 +46,8 @@ paths:
           description: CardId
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: string
       responses:
         '200':
           description: get success
@@ -57,7 +57,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
-  /customer/createCustomer:
+  /createCustomer:
     post:
       tags:
         - Клиент
