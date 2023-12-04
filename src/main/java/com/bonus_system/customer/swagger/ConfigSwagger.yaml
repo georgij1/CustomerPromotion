@@ -2,14 +2,14 @@ openapi: "3.0.2"
 info:
   title: Бонусная Система
   description: Регистрация пользователя в бонусной системе
-  version: 1.0.0
+  version: 1.0.1
 servers:
   - url: https://localhost:8080
 tags:
   - name: Клиент
     description: Контроллер для клиента
 paths:
-  /idCustomer/{idCustomer}:
+  /customer/idCustomer/{idCustomer}:
     get:
       tags:
         - Клиент
@@ -23,7 +23,6 @@ paths:
           required: true
           schema:
             type: string
-            format: string
       responses:
         '200':
           description: successful operation
@@ -32,8 +31,8 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Customer'
-  /idCard/{idCard}:
+                  $ref: '#/components/schemas/CustomerTable'
+  /customer/idCard/{idCard}:
     get:
       tags:
         - Клиент
@@ -47,7 +46,6 @@ paths:
           required: true
           schema:
             type: string
-            format: string
       responses:
         '200':
           description: get success
@@ -56,8 +54,8 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Customer'
-  /createCustomer:
+                  $ref: '#/components/schemas/CustomerTable'
+  /customer/createCustomer:
     post:
       tags:
         - Клиент
@@ -72,7 +70,7 @@ paths:
               $ref: '#/components/schemas/Customer'
         required: true
       responses:
-        '200':
+        '201':
           description: get success
           content:
             application/json:
@@ -80,6 +78,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Customer'
+        '500':
+          description: Такой пользователь уже существует (ошибка от postgresql)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+
 components:
   schemas:
     Customer:
@@ -90,3 +97,19 @@ components:
         nickName:
           type: string
           example: pylifor
+    CustomerTable:
+      required:
+        - idclient
+        - nickname
+        - card_id
+      type: object
+      properties:
+        idclient:
+          type: integer
+          example: autoincrement
+        nickname:
+          type: string
+          example: pylifor
+        card_id:
+          type: string
+          example: 406e096c-78aa-40be-9b1a-2d940c69e880

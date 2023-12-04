@@ -6,13 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
 @org.springframework.stereotype.Repository
-public interface Repository extends CrudRepository<CustomerTable, Long> {
+public interface Repository extends CrudRepository<com.bonus_system.customer.repoCustomer.CustomerTable, Long> {
     @Transactional
-    @Query("select customer from CustomerTable customer where customer.card_id=:idCard")
-    Optional<CustomerTable> findByCardId(String idCard);
+    @Query("select customer from CustomerTable customer where customer.cardId=:idCard")
+    CustomerTable findByCardId(String idCard);
+
+    @Transactional
+    @Query("select customer from CustomerTable customer where customer.idclient=:idClient")
+    CustomerTable findByIdClient(String idClient);
 
     @Modifying
     @Transactional
