@@ -1,16 +1,16 @@
 package com.bonus_system.customer.controllers.v1;
 
-import com.bonus_system.customer.repoCustomer.Repository;
+import com.bonus_system.customer.services.FindByCardId;
+import com.bonus_system.customer.services.FindByClientId;
+import com.bonus_system.customer.services.UpdateCustomer;
 import lombok.AllArgsConstructor;
 import org.openapi.example.api.CustomerApi;
 import org.openapi.example.model.Customer;
-import org.openapi.example.model.CustomerTable;
-import org.springframework.core.convert.converter.Converter;
+import org.openapi.example.model.CustomerTableDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,36 +18,24 @@ import java.util.UUID;
 @RequestMapping("customer")
 @AllArgsConstructor
 public class CustomerController implements CustomerApi {
-    public Repository repository;
+    private FindByCardId findByCardId;
+    private FindByClientId findByClientId;
+    private UpdateCustomer updateCustomer;
 
     @Override
-    public ResponseEntity<List<Customer>> createCustomer(Customer customer) {
+    public ResponseEntity<Void> createCustomer(Customer customer) {
         UUID uuid = UUID.randomUUID();
-        repository.updateCustomer(customer.getNickName(), String.valueOf(uuid));
+        updateCustomer.updateCustomer(customer.getNickName(), uuid);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<List<org.openapi.example.model.CustomerTable>> findByCardId(String idCard) {
-        ArrayList<CustomerTable> list = new ArrayList<>();
-        list.add(repository.findByCardId(String.valueOf(idCard)));
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<List<CustomerTableDTO>> findByCardId(String idCard) {
+        return ResponseEntity.ok().body(Collections.singletonList(findByCardId.findByCardID(idCard)));
     }
 
     @Override
-    public ResponseEntity<List<CustomerTable>> findByClientId(String idCustomer) {
-        List<CustomerTable> list = new ArrayList<>();
-        list.add(repository.findByIdClient(idCustomer));
-        return ResponseEntity.ok().body(list);
-    }
-
-    @Component
-    public static class CustomConverter implements Converter<com.bonus_system.customer.repoCustomer.CustomerTable, CustomerTable>, com.bonus_system.customer.controllers.v1.CustomConverter {
-        @Override
-        public org.openapi.example.model.CustomerTable convert(com.bonus_system.customer.repoCustomer.CustomerTable source) {
-            // Convert logic here
-            // ...
-            return new CustomerTable();
-        }
+    public ResponseEntity<List<CustomerTableDTO>> findByClientId(Integer idCustomer) {
+        return ResponseEntity.ok().body(Collections.singletonList(findByClientId.findByClientId(idCustomer)));
     }
 }

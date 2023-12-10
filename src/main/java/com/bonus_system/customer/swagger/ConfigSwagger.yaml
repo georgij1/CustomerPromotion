@@ -22,7 +22,7 @@ paths:
           description: IdClient
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         '200':
           description: successful operation
@@ -31,7 +31,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CustomerTable'
+                  $ref: '#/components/schemas/CustomerTableDTO'
   /customer/idCard/{idCard}:
     get:
       tags:
@@ -54,7 +54,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CustomerTable'
+                  $ref: '#/components/schemas/CustomerTableDTO'
   /customer/createCustomer:
     post:
       tags:
@@ -72,20 +72,8 @@ paths:
       responses:
         '201':
           description: get success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Customer'
         '500':
           description: Такой пользователь уже существует (ошибка от postgresql)
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Customer'
 
 components:
   schemas:
@@ -97,7 +85,7 @@ components:
         nickName:
           type: string
           example: pylifor
-    CustomerTable:
+    CustomerTableDTO:
       required:
         - idclient
         - nickname
