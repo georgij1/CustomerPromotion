@@ -25,11 +25,7 @@ public class GetInfo {
         }
 
         else {
-            return new CustomerTableDTO(
-                    null,
-                    null,
-                    null
-            );
+            throw new RuntimeException("Client by CardId is not found");
         }
     }
 
@@ -47,11 +43,7 @@ public class GetInfo {
         }
 
         else {
-            return new CustomerTableDTO(
-                    null,
-                    null,
-                    null
-            );
+            throw new RuntimeException("Client by ClientId is not found");
         }
     }
 }
