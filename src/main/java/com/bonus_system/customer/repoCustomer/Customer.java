@@ -17,12 +17,12 @@ import org.springframework.data.relational.core.mapping.Table;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerTable {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idclient;
+    private Integer id_client;
     @Column("nickname")
-    private String nickname;
+    private String nick_name;
     @Column("card_id")
-    private String cardId;
+    private String card_id;
 }

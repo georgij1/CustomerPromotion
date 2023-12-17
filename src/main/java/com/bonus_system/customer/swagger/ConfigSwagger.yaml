@@ -72,8 +72,6 @@ paths:
       responses:
         '201':
           description: get success
-        '500':
-          description: Такой пользователь уже существует (ошибка от postgresql)
 
 components:
   schemas:

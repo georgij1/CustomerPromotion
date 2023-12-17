@@ -1,6 +1,6 @@
 create table if not exists customer
 (
-    IdClient serial primary key,
-    NickName text not null unique,
+    id_client serial primary key,
+    nick_name text not null unique,
     card_id  text  not null
 )
