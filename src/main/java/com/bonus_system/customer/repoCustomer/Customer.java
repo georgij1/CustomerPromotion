@@ -20,6 +20,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column("id_client")
     private Integer id_client;
     @Column("nickname")
     private String nick_name;
