@@ -37,4 +37,9 @@ public class CustomerController implements CustomerApi {
         var client_find_by_ClientID = Collections.singletonList(getInfo.findByClientId(idCustomer));
         return ResponseEntity.ok().body(client_find_by_ClientID);
     }
+
+    @Override
+    public ResponseEntity<Void> halfCheck() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
