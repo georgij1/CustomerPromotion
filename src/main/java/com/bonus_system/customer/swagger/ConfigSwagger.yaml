@@ -72,7 +72,16 @@ paths:
       responses:
         '201':
           description: get success
-
+  /customer/halfcheck:
+    get:
+      tags:
+        - Карта клиента
+      summary: Статус сервера
+      description: Запущен ли сервер
+      operationId: half-check
+      responses:
+        '200':
+          description: ok
 components:
   schemas:
     Customer:
