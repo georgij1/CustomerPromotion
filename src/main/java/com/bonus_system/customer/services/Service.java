@@ -4,13 +4,13 @@ import com.bonus_system.customer.repoCustomer.CustomerRepository;
 import com.bonus_system.customer.repoCustomer.Customer;
 import lombok.AllArgsConstructor;
 import org.openapi.example.model.CustomerTableDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
-@Service
+@org.springframework.stereotype.Service
 @AllArgsConstructor
-public class GetInfo {
+public class Service implements ServiceImpl {
     public CustomerRepository customerRepository;
 
     public CustomerTableDTO findByCardID(String cardId) {
@@ -45,5 +45,11 @@ public class GetInfo {
         else {
             throw new RuntimeException("Client by ClientId is not found");
         }
+    }
+
+    public void updateCustomer(
+            String nickName
+    ) {
+        customerRepository.saveData(nickName, UUID.randomUUID());
     }
 }
